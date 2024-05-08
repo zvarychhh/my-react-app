@@ -1,42 +1,40 @@
-import "./App.css";
-import Menu from "./components/menu/Menu";
-import ShopCard from "./components/shop- card/ShopCard";
+import './App.css';
+import MenuComponent from "./components/menu-component/MenuComponent";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BinComponent from "./components/bin-component/BinComponent";
+import AboutComponent from "./components/about-component/AboutComponent";
+import ListComponents from "./components/list-component/ListComponents";
+import { useState } from 'react';
+
+
 function App() {
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const addToTotalPrice = (price) => {
+      setTotalPrice(totalPrice + price);
+      
+    };
+
+    const setTotalNull = () => {setTotalPrice(0)};
+
   return (
     <section className="app">
       <header className="app-header">
-        <Menu />
-        Page 11 of 37
+     
       </header>
-      <main>
-        <section className="container">
-          <div className="row col-9">
-            <div className="col-sm-3">
-              <ShopCard
-                card={{ id: 1, title: "title 1", description: "description 1" }}
-                otherval={"other"}
-              />             
-            </div>
-
-            <div className="col-sm-3">
-              <ShopCard
-                card={{ id: 2, title: "title 2", description: "description 2" }}
-                otherval={"other"}
-              />             
-            </div>
-            <div className="col-sm-3">
-              <ShopCard
-                card={{ id: 3, title: "title 3", description: "description 3" }}
-                otherval={"other"}
-              />             
-            </div>
-            
-
-          </div>
-          
-        </section>
-      </main>
+      <BrowserRouter>
+      <MenuComponent totalPrice={totalPrice} />
+      <div className='mt-3'>
+      <Routes>
+        <Route exact path="/" element={<ListComponents addToTotalPrice={addToTotalPrice} />} />
+        <Route path="/bin" element={<BinComponent setTotalNull={setTotalNull}/>} />
+        <Route path="/about" element={<AboutComponent/>} />
+      </Routes>
+      </div>
+      </BrowserRouter>
+      
     </section>
   );
 }
+
 export default App;
