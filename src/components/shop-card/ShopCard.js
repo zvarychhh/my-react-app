@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-const ShopCard = ({card, addToTotalPrice }) => {
+const ShopCard = ({ card, addToBin }) => {
   const addItem = () => {
-    addToTotalPrice(parseInt(card.price))
+    addToBin(card);
   };
 
   return (
